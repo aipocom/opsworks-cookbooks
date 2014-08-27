@@ -15,14 +15,6 @@ execute "change permission" do
   EOH
 end
 
-template "instance-initialize.sh" do
-  path "/var/lib/cloud/scripts/per-once/instance-initialize.sh"
-  source "instance-initialize.sh.erb"
-  owner "root"
-  group "root"
-  mode 0744
-end
-
 include_recipe "nginx::service"
 
 template "www.conf" do

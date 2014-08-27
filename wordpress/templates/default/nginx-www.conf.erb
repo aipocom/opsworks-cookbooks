@@ -5,7 +5,7 @@
 
 server {
     listen       80;
-    server_name  ___instance_public_domain___;
+    server_name  _;
     root         /var/www/vhosts/<%= node[:wordpress][:instance_id] %>;
 
     location / {
