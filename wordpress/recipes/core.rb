@@ -45,12 +45,12 @@ node[:deploy].each do |app_name, deploy|
     owner "root"
     group "root"
     mode 0666
-    variables (
-          :host =>     (deploy[:database][:host] rescue nil),
-          :user =>     (deploy[:database][:username] rescue nil),
-          :password => (deploy[:database][:password] rescue nil),
-          :db =>       (deploy[:database][:database] rescue nil)
-        )
+    variables ({
+          :host => deploy[:database][:host],
+          :user => deploy[:database][:username],
+          :password => deploy[:database][:password],
+          :db => deploy[:database][:database]
+   })
   end
   
   file "delete scripts-per-once" do
