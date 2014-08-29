@@ -15,12 +15,20 @@ execute "change permission" do
   EOH
 end
 
-template "instance-initialize.sh" do
-  path "/var/lib/cloud/scripts/per-once/instance-initialize.sh"
-  source "instance-initialize.sh.erb"
-  owner "root"
-  group "root"
-  mode 0744
+node[:deploy].each do |app_name, deploy|
+  template "wp-config.php" do
+    path "/var/www/vhosts/#{node[:wordpress][:instance_id]}/wp-config.php"
+    source "wp-config.php.erb"
+    owner "root"
+    group "root"
+    mode 0666
+    variables ({
+          :host => deploy[:database][:host],
+          :user => deploy[:database][:username],
+          :password => deploy[:database][:password],
+          :db => deploy[:database][:database]
+          })
+  end
 end
 
 include_recipe "nginx::service"
