@@ -18,7 +18,7 @@ end
 node[:deploy].each do |app_name, deploy|
   template "wp-config.php" do
     path "/var/www/vhosts/#{node[:wordpress][:instance_id]}/wp-config.php"
-    source "wp-config.php.erb"
+    source "opsworks-datasource-wp-config.php.erb"
     owner "root"
     group "root"
     mode 0666
@@ -35,7 +35,7 @@ include_recipe "nginx::service"
 
 template "www.conf" do
   path "/etc/nginx/conf.d/www.conf"
-  source "nginx-www.conf.erb"
+  source "opsworks-datasource-nginx-www.conf.erb"
   owner "root"
   group "root"
   mode 0644
